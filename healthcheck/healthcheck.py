@@ -22,9 +22,12 @@ class HealthcheckComponentInterface(ABC):
     def __post_init__(self) -> None:
         assert self.component_type is not None, "component_type must be set"
 
-    def add_healthcheck(self, coroutine: Callable[[], Coroutine[Any, Any, HealthcheckCallbackResponse]]) -> None:
+    def add_healthcheck(self, coroutine: Callable[[], Coroutine[Any, Any, HealthcheckCallbackResponse]]) -> "HealthcheckComponentInterface":
         """Add a coroutine function as a healthcheck."""
         self.healthchecks.append(coroutine)
+
+        # Return self so that we can chain calls to this method
+        return self
 
     async def _run_async_healthchecks(self) -> list[HealthcheckCallbackResponse]:
         return await asyncio.gather(*[coroutine() for coroutine in self.healthchecks])  # type: ignore[no-any-return]
