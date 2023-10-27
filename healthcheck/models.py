@@ -3,6 +3,8 @@ from datetime import datetime
 from enum import Enum
 from typing import Any, Optional
 
+from healthcheck.utils import get_enum_value
+
 
 class ComponentType(str, Enum):
     """Enum used to store the component types."""
@@ -49,8 +51,8 @@ class HealthcheckComponentStatus:
         """Return a dict representation of the object. All field names are converted to camel case."""
         json = {
             "componentName": self.component_name,
-            "componentType": self.component_type.value,
-            "status": self.status.value,
+            "componentType": get_enum_value(self.component_type),
+            "status": get_enum_value(self.status),
             "output": self.output,
         }
 
@@ -82,7 +84,7 @@ class HealthcheckResponse:
     def to_json(self) -> dict[str, Any]:
         """Return a dict representation of the object. All field names are converted to camel case."""
         return {
-            "status": self.status.value,
+            "status": get_enum_value(self.status),
             "description": self.description,
             "checks": {k: [c.to_json() for c in v] for k, v in self.checks.items()},
         }
