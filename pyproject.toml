@@ -3,7 +3,7 @@ name = "python-healthchecklib"
 version = "0.1.0"
 description = "Opinionated healthcheck library"
 authors = ["Hathor Team <contact@hathor.network>"]
-license = "Apache-2.0"
+license = "MIT"
 readme = "README.md"
 packages = [{include = "healthcheck"}]
 
