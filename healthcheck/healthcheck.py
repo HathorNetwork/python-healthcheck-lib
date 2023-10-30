@@ -22,7 +22,9 @@ class HealthcheckComponentInterface(ABC):
     def __post_init__(self) -> None:
         assert self.component_type is not None, "component_type must be set"
 
-    def add_healthcheck(self, coroutine: Callable[[], Coroutine[Any, Any, HealthcheckCallbackResponse]]) -> "HealthcheckComponentInterface":
+    def add_healthcheck(
+        self, coroutine: Callable[[], Coroutine[Any, Any, HealthcheckCallbackResponse]]
+    ) -> "HealthcheckComponentInterface":
         """Add a coroutine function as a healthcheck."""
         self.healthchecks.append(coroutine)
 

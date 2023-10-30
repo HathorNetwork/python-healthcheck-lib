@@ -15,7 +15,7 @@ This project adheres to the [Contributor Covenant Code of Conduct](https://www.c
 1. Fork the repository and create your branch from `main`.
 2. If you've added code that should be tested, add tests.
 3. If you've changed APIs, update the documentation.
-4. Ensure the test suite passes.
+4. Ensure the test suite passes. You can run it with `poetry run pytest`.
 5. Make sure your code lints.
 6. Submit a pull request.
 
