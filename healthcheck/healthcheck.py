@@ -1,6 +1,6 @@
 import asyncio
 from abc import ABC
-from typing import Any, Callable, Coroutine, Optional
+from typing import Any, Callable, Coroutine, Dict, List, Optional
 
 from healthcheck.models import (
     ComponentType,
@@ -17,7 +17,7 @@ class HealthcheckComponentInterface(ABC):
     def __init__(self, name: str, id: Optional[str] = None) -> None:
         self.name: str = name
         self.id: Optional[str] = id
-        self.healthchecks: list[Callable[[], Coroutine[Any, Any, HealthcheckCallbackResponse]]] = []
+        self.healthchecks: List[Callable[[], Coroutine[Any, Any, HealthcheckCallbackResponse]]] = []
 
     def __post_init__(self) -> None:
         assert self.component_type is not None, "component_type must be set"
@@ -31,11 +31,11 @@ class HealthcheckComponentInterface(ABC):
         # Return self so that we can chain calls to this method
         return self
 
-    async def _run_async_healthchecks(self) -> list[HealthcheckCallbackResponse]:
+    async def _run_async_healthchecks(self) -> List[HealthcheckCallbackResponse]:
         return await asyncio.gather(*[coroutine() for coroutine in self.healthchecks])  # type: ignore[no-any-return]
 
-    async def run(self) -> list[HealthcheckComponentStatus]:
-        results: list[HealthcheckComponentStatus] = []
+    async def run(self) -> List[HealthcheckComponentStatus]:
+        results: List[HealthcheckComponentStatus] = []
 
         healthcheck_results = await self._run_async_healthchecks()
 
@@ -76,14 +76,14 @@ class Healthcheck:
     def __init__(
         self,
         name: str,
-        components: list[HealthcheckComponentInterface] = [],
+        components: List[HealthcheckComponentInterface] = [],
         warn_is_unhealthy: bool = False,
     ) -> None:
         self.name = name
-        self.components: list[HealthcheckComponentInterface] = components
+        self.components: List[HealthcheckComponentInterface] = components
         self.warn_is_unhealthy = warn_is_unhealthy
 
-        self.checks: dict[str, list[HealthcheckComponentStatus]] = {}
+        self.checks: Dict[str, List[HealthcheckComponentStatus]] = {}
 
     @property
     def status(self) -> HealthcheckStatus:

@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from typing import Any, Optional
+from typing import Any, Dict, List, Optional
 
 from healthcheck.utils import get_enum_value
 
@@ -49,7 +49,7 @@ class HealthcheckComponentStatus:
     def __post_init__(self) -> None:
         self.time = datetime.utcnow()
 
-    def to_json(self) -> dict[str, str]:
+    def to_json(self) -> Dict[str, str]:
         """Return a dict representation of the object. All field names are converted to camel case."""
         json = {
             "componentName": self.component_name,
@@ -79,13 +79,13 @@ class HealthcheckResponse:
 
     status: HealthcheckStatus
     description: str
-    checks: dict[str, list[HealthcheckComponentStatus]]
+    checks: Dict[str, List[HealthcheckComponentStatus]]
     _http_status_code: int
 
     def get_http_status_code(self) -> int:
         return self._http_status_code
 
-    def to_json(self) -> dict[str, Any]:
+    def to_json(self) -> Dict[str, Any]:
         """Return a dict representation of the object. All field names are converted to camel case."""
         return {
             "status": get_enum_value(self.status),
