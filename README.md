@@ -85,16 +85,18 @@ print(status)
 #   "status": "pass",
 #   "description": "Health status of My Service",
 #   "checks": {
-#     "database": [
+#     "MySQL": [
 #       {
 #         "status": "pass",
 #         "output": "Database is healthy",
-#         "componentType": "datastore"
+#         "componentType": "datastore",
+#         "componentName": "MySQL
 #       },
 #       {
 #         "status": "warn",
 #         "output": "Responsive but high latency",
-#         "componentType": "datastore"
+#         "componentType": "datastore",
+#         "componentName": "MySQL
 #       }
 #     ]
 #   }

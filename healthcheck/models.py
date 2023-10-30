@@ -25,6 +25,7 @@ class HealthcheckStatus(str, Enum):
 
 @dataclass
 class HealthcheckCallbackResponse:
+    """This class is used to store the result of a health check callback."""
     status: HealthcheckStatus
     output: str
     affects_service_health: bool = True
@@ -73,6 +74,7 @@ class HealthcheckComponentStatus:
 
 @dataclass
 class HealthcheckResponse:
+    """Represents the final result of a healthcheck in a service."""
     status: HealthcheckStatus
     description: str
     checks: dict[str, list[HealthcheckComponentStatus]]
