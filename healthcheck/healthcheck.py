@@ -32,7 +32,10 @@ class HealthcheckComponentInterface(ABC):
         return self
 
     async def _run_async_healthchecks(self) -> List[HealthcheckCallbackResponse]:
-        return await asyncio.gather(*[coroutine() for coroutine in self.healthchecks])  # type: ignore[no-any-return]
+        responses: List[HealthcheckCallbackResponse] = await asyncio.gather(
+            *[coroutine() for coroutine in self.healthchecks]
+        )
+        return responses
 
     async def run(self) -> List[HealthcheckComponentStatus]:
         results: List[HealthcheckComponentStatus] = []
