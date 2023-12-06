@@ -80,10 +80,16 @@ class HealthcheckResponse:
     status: HealthcheckStatus
     description: str
     checks: Dict[str, List[HealthcheckComponentStatus]]
-    _http_status_code: int
+    _http_status_code: Optional[int] = None
 
     def get_http_status_code(self) -> int:
+        assert self._http_status_code is not None, "http_status_code must be set"
+
         return self._http_status_code
+
+    def filter_checks_by_status(self, status: HealthcheckStatus) -> Dict[str, List[HealthcheckComponentStatus]]:
+        """Return a dict of checks that have the given status."""
+        return {k: v for k, v in self.checks.items() if any(c.status == status for c in v)}
 
     def to_json(self) -> Dict[str, Any]:
         """Return a dict representation of the object. All field names are converted to camel case."""

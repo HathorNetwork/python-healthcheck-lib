@@ -7,9 +7,10 @@ from .healthcheck import (
     HealthcheckHTTPComponent,
     HealthcheckInternalComponent,
 )
-from .models import HealthcheckCallbackResponse, HealthcheckResponse, HealthcheckStatus
+from .models import HealthcheckCallbackResponse, HealthcheckResponse, HealthcheckStatus, ComponentType
 
 __all__ = [
+    "ComponentType",
     "Healthcheck",
     "HealthcheckDatastoreComponent",
     "HealthcheckGenericComponent",
