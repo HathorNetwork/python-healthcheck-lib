@@ -65,7 +65,8 @@ class HealthcheckComponentStatus:
             json["componentId"] = self.component_id
 
         if self.observed_value:
-            assert self.observed_unit is not None, "observed_unit must be set if observed_value is set"
+            if self.observed_unit is None:
+                raise AssertionError("observed_unit must be set if observed_value is set")
 
             json["observedValue"] = self.observed_value
             json["observedUnit"] = self.observed_unit

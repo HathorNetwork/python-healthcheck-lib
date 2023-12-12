@@ -29,6 +29,12 @@ We also use `flake8` to lint the code and `mypy` to type check it. You can run t
 - `poetry run flake8 .`.
 - `poetry run mypy .`.
 
+We use `bandit` to find possible security issues in the code. You can run it with:
+- `poetry run bandit -b bandit_baseline.json -r .`.
+
+If you need to update the bandit baseline, you can run:
+- `poetry run bandit -r . -f json -o bandit_baseline.json`.
+
 ## License
 
 By contributing to python-healthchecklib, you agree that your contributions will be licensed under the [MIT License](https://opensource.org/licenses/MIT).
