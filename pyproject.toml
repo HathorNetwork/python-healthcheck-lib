@@ -18,6 +18,7 @@ flake8 = "^6.1.0"
 mypy = "^1.6.1"
 pytest-cov = "^4.1.0"
 flake8-bugbear = "^23.12.2"
+bandit = "^1.7.6"
 
 [build-system]
 requires = ["poetry-core"]

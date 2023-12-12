@@ -30,6 +30,7 @@ jobs:
         poetry run isort --check-only .
         poetry run flake8 .
         poetry run mypy .
+        poetry run bandit -b bandit_baseline.json -r .
 
     - name: Run tests
       run: |

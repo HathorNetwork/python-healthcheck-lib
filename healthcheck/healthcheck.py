@@ -20,7 +20,8 @@ class HealthcheckComponentInterface(ABC):
         self.healthchecks: List[Callable[[], Coroutine[Any, Any, HealthcheckCallbackResponse]]] = []
 
     def __post_init__(self) -> None:
-        assert self.component_type is not None, "component_type must be set"
+        if self.component_type is None:
+            raise AssertionError("component_type must be set")
 
     def add_healthcheck(
         self, coroutine: Callable[[], Coroutine[Any, Any, HealthcheckCallbackResponse]]
@@ -43,7 +44,8 @@ class HealthcheckComponentInterface(ABC):
         healthcheck_results = await self._run_async_healthchecks()
 
         for result in healthcheck_results:
-            assert isinstance(result, HealthcheckCallbackResponse), "HealthcheckCallbackResponse expected"
+            if not isinstance(result, HealthcheckCallbackResponse):
+                raise AssertionError("HealthcheckCallbackResponse expected")
 
             results.append(
                 HealthcheckComponentStatus(
