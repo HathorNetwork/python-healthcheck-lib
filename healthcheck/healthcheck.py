@@ -79,11 +79,11 @@ class Healthcheck:
     def __init__(
         self,
         name: str,
-        components: List[HealthcheckComponentInterface] = [],
+        components: Optional[List[HealthcheckComponentInterface]] = None,
         warn_is_unhealthy: bool = False,
     ) -> None:
         self.name = name
-        self.components: List[HealthcheckComponentInterface] = components
+        self.components: List[HealthcheckComponentInterface] = components or []
         self.warn_is_unhealthy = warn_is_unhealthy
 
         self.checks: Dict[str, List[HealthcheckComponentStatus]] = {}
