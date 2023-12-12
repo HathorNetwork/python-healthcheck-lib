@@ -9,6 +9,7 @@ packages = [{include = "healthcheck"}]
 
 [tool.poetry.dependencies]
 python = "^3.8.1"
+flake8-bugbear = "^23.12.2"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.4.2"
